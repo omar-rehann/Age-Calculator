@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Age Calculator</title>
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+        body {
+            padding: 25px;
+            background-image: url(sq.avif);
+            background-size: cover;
+            height: 100vh;
+            font-family: Arial, sans-serif;
+        }
+        
+        .continer {
+            width: 100%;
+            background-color: #ecb400;
+            padding: 10px;
+            margin: 10px auto;
+            border-radius: 10px;
+        }
+        
+        .continer .group_input {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            flex-wrap: wrap;
+            border: none;
+        }
+        
+        .continer .group_input label {
+            text-align: center;
+            color: white;
+        }
+        
+        .continer .group_input input {
+            margin: 10px 20px;
+            padding: 10px;
+            border-radius: 5px;
+            border: none;
+        }
+        
+        .continer button {
+            background-color: black;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            border-radius: 10px;
+            border: none;
+            width: 95%;
+            margin: 10px auto;
+            cursor: pointer;
+        }
+        
+        .continer .eror {
+            background-color: red;
+            padding: 10px;
+            border-radius: 10px;
+            color: white;
+            margin: 10px 10px;
+        }
+        
+        .continer .info {
+            background-color: white;
+            color: black;
+            line-height: 2;
+            padding: 10px;
+            border-radius: 10px;
+            margin: 10px 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="continer">
+        <div class="group_input">
+            <input type="text" placeholder="Enter Day" class="one" name="" id="" value="" />
+            <input type="text" placeholder="Enter Month" class="two" name="" id="" value="" />
+            <input type="text" placeholder="Enter Year" class="three" name="" id="" value="" />
+        </div>
+        <button type="submit" class="send">Calc</button>
+    </div>
+
+    <script charset="utf-8">
+        let onevalue = document.querySelector(".group_input .one");
+        let twovalue = document.querySelector(".group_input .two");
+        let threevalue = document.querySelector(".group_input .three");
+        let btn = document.querySelector(".send");
+        let section = document.querySelector(".continer");
+
+        btn.onclick = function() {
+            // Clear previous error or info messages
+            document.querySelectorAll('.eror, .info').forEach(el => el.remove());
+
+            if (onevalue.value == "" || twovalue.value == "" || threevalue.value == "") {
+                let el = document.createElement("div");
+                el.className = "eror";
+                let txt = document.createTextNode("Please Enter Valid Input");
+                el.appendChild(txt);
+                section.appendChild(el);
+            } else if (isNaN(onevalue.value) || isNaN(twovalue.value) || isNaN(threevalue.value)) {
+                let el = document.createElement("div");
+                el.className = "eror";
+                let txt = document.createTextNode("Please Enter Valid Numbers");
+                el.appendChild(txt);
+                section.appendChild(el);
+            } else {
+                if (onevalue.value > 0 && onevalue.value <= 31 && twovalue.value > 0 && twovalue.value <= 12 && threevalue.value.length == 4) {
+                    let newonevalue = 30 - onevalue.value;
+                    let twonewval = 12 - twovalue.value;
+                    let threenewval = 2024 - threevalue.value;
+
+                    let final = document.createElement("div");
+                    final.className = "info";
+
+                    let onediv = document.createElement("div");
+                    let onetext = document.createTextNode(`${newonevalue} Day`);
+                    onediv.appendChild(onetext);
+
+                    let twodiv = document.createElement("div");
+                    let twotxt = document.createTextNode(`${twonewval} Month`);
+                    twodiv.appendChild(twotxt);
+
+                    let threediv = document.createElement("div");
+                    let threetxt = document.createTextNode(`${threenewval} Year`);
+                    threediv.appendChild(threetxt);
+
+                    final.appendChild(onediv);
+                    final.appendChild(twodiv);
+                    final.appendChild(threediv);
+                    section.appendChild(final);
+                } else {
+                    let el = document.createElement("div");
+                    el.className = "eror";
+                    let txt = document.createTextNode("Please Enter Valid Date (DD/MM/YYYY)");
+                    el.appendChild(txt);
+                    section.appendChild(el);
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>
